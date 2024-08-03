@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=0.0.1
+Type=Application
+Name=WebAi 
+Exec=x-live-webai
+Icon=webai
+Categories=Utility;
+Keywords=ai;ki;chatbot;chatgpt;gpt;
+StartupNotify=true
+X-GNOME-UsesNotifications=true
+GenericName=KI-Chat 
