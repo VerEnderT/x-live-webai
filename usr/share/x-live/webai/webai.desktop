@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=WebAI Autostart
+Exec=x-live-webai
+Icon=/usr/share/pixmaps/webai.png
+Terminal=false

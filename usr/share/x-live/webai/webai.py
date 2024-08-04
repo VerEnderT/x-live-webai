@@ -52,6 +52,9 @@ class MainWindow(QMainWindow):
         open_action = QAction("öffnen/verstecken", self)
         exit_action = QAction("schließen", self)
         self.max_action = QAction("Maximieren", self)
+        self.autostart_action = QAction("Autostart □", self)
+        if os.path.exists(os.path.expanduser("~/.config/autostart/webai.desktop")):
+            self.autostart_action.setText("Autostart ✓")
 
         # Menü KI-Auswahl
         self.change_menu = QMenu("ki-auswählen", self)
@@ -70,9 +73,11 @@ class MainWindow(QMainWindow):
         open_action.triggered.connect(self.toggle_window)
         exit_action.triggered.connect(QApplication.instance().quit)
         self.max_action.triggered.connect(self.max_window)
+        self.autostart_action.triggered.connect(self.toogle_autostart)
 
         tray_menu.addMenu(self.change_menu)
         tray_menu.addAction(self.max_action)
+        tray_menu.addAction(self.autostart_action)
         tray_menu.addAction(exit_action)
         self.tray_icon.setContextMenu(tray_menu)
         self.tray_icon.show()
@@ -96,6 +101,18 @@ class MainWindow(QMainWindow):
             with open(URL_FILE_PATH, 'r') as file:
                 return file.read().strip()
         return None
+
+    def toogle_autostart(self):
+        PATH = os.path.expanduser("~/.config/autostart/webai.desktop")
+        if os.path.exists(PATH):
+            os.system("rm "+PATH)
+        else:
+            os.system("cp /usr/share/x-live/webai/webai.desktop "+PATH)
+
+        if os.path.exists(PATH):
+            self.autostart_action.setText("Autostart ✓")
+        else:
+            self.autostart_action.setText("Autostart □")
 
     def toggle_window(self):
         if self.isVisible():
